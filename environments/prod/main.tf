@@ -1,26 +1,3 @@
-terraform {
-  required_version = ">= 1.8.0"
-
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~> 3.90"
-    }
-  }
-
-  backend "azurerm" {
-    # Configure via -backend-config or environment variables in CI/CD.
-    # resource_group_name  = "tfstate-rg"
-    # storage_account_name = "tfstatestorage"
-    # container_name       = "tfstate"
-    # key                  = "prod.terraform.tfstate"
-  }
-}
-
-provider "azurerm" {
-  features {}
-}
-
 module "resource_group" {
   source = "../../modules/resource_group"
 

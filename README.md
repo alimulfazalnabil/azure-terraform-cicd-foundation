@@ -39,6 +39,7 @@ azure-terraform-cicd-foundation/
 │   │   ├── outputs.tf
 │   │   └── terraform.tfvars
 │   └── prod/                        # Production environment configuration
+│       ├── backend.tf
 └── README.md
 ```
 
@@ -49,7 +50,7 @@ azure-terraform-cicd-foundation/
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) >= 1.8.0
 - An Azure subscription
 - A GitHub OIDC federated credential configured for Azure (`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` repository secrets)
-- An Azure Storage Account and container matching `environments/dev/backend.tf` for the Terraform remote state backend
+- Azure Storage Accounts and containers matching each environment's `backend.tf` for remote state
 
 ### Local Usage
 
@@ -64,8 +65,8 @@ terraform apply
 
 The [terraform-pipeline.yml](.github/workflows/terraform-pipeline.yml) workflow:
 
-1. Runs `terraform plan` on every pull request targeting `main`.
-2. Runs `terraform apply` automatically when changes are merged/pushed to `main`.
+1. Runs formatting, initialization, validation, and `terraform plan` for both `dev` and `prod` on every pull request targeting `main`.
+2. Runs `terraform apply` for both environments when changes are pushed to `main`.
 3. Authenticates to Azure using passwordless OIDC — no long-lived credentials are stored in GitHub.
 
 ## 🔒 Security Notes
