@@ -4,13 +4,13 @@ An enterprise-grade, modular Infrastructure as Code (IaC) deployment framework b
 
 ## 🏗️ Architecture & Workflow
 
-Developer (Git Push) ➔ GitHub Actions CI/CD ➔ OIDC Azure Auth ➔ Terraform Plan/Apply ➔ Secure Azure Landing Zone
+Developer (Git Push) -> GitHub Actions CI/CD -> OIDC Azure Auth -> Terraform Plan/Apply -> Secure Azure Landing Zone
 
 ## 🚀 Features
 
 - **Modular Design:** Reusable Terraform components for Virtual Networks, Resource Groups, and Key Vaults.
 - **Secure Authentication:** Passwordless OpenID Connect (OIDC) integration between GitHub Actions and Azure.
-- **Environment Isolation:** Separated configurations for `dev` and `prod` environments. 
+- **Environment Isolation:** Separated configurations for `dev` and `prod` environments.
 - **Automated Validation:** CI checks (`terraform validate` and `plan`) enforced on every pull request.
 
 ## 🛠️ Tech Stack
@@ -33,6 +33,7 @@ azure-terraform-cicd-foundation/
 │   └── key_vault/                   # Key Vault & Secrets module
 ├── environments/
 │   ├── dev/
+│   │   ├── backend.tf
 │   │   ├── main.tf
 │   │   ├── variables.tf
 │   │   ├── outputs.tf
@@ -48,7 +49,7 @@ azure-terraform-cicd-foundation/
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) >= 1.8.0
 - An Azure subscription
 - A GitHub OIDC federated credential configured for Azure (`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID` repository secrets)
-- An Azure Storage Account configured as the Terraform remote state backend
+- An Azure Storage Account and container matching `environments/dev/backend.tf` for the Terraform remote state backend
 
 ### Local Usage
 
@@ -70,7 +71,7 @@ The [terraform-pipeline.yml](.github/workflows/terraform-pipeline.yml) workflow:
 ## 🔒 Security Notes
 
 - No client secrets are stored in the repository or CI/CD pipeline; authentication uses OIDC federated identity.
-- Key Vault modules default to RBAC authorization, purge protection, and a 90-day soft-delete retention.
+- The Key Vault module uses RBAC authorization with seven-day soft-delete retention and purge protection disabled, matching the sample configuration.
 - Terraform state should always be stored in a remote, encrypted backend (e.g., Azure Storage Account with versioning).
 
 ## 📄 License

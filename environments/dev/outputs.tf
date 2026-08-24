@@ -1,6 +1,6 @@
 output "resource_group_name" {
   description = "The name of the dev resource group"
-  value       = module.resource_group.name
+  value       = module.rg.name
 }
 
 output "vnet_id" {

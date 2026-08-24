@@ -16,7 +16,7 @@ variable "vnet_name" {
   default     = "vnet-foundation-dev"
 }
 
-variable "vnet_address_space" {
+variable "address_space" {
   description = "Address space for the dev virtual network"
   type        = list(string)
   default     = ["10.10.0.0/16"]
