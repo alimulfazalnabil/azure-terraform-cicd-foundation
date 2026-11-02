@@ -32,7 +32,7 @@ It separates development and production environment configurations and uses GitH
 
 ## 02 — Architecture and workflow
 
-![Azure Terraform CI/CD architecture](docs/architecture.svg)
+![Azure Terraform CI/CD architecture](https://raw.githubusercontent.com/alimulfazalnabil/azure-terraform-cicd-foundation/main/docs/architecture.svg)
 
 ~~~mermaid
 flowchart LR
